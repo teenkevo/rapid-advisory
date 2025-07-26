@@ -64,7 +64,7 @@ export default function Component() {
             {/* Left Side - Stats and Info */}
             <div className="space-y-8">
               <div>
-                <h1 className="text-3xl md:text-5xl font-extrabold text-black mb-6 leading-tight">
+                <h1 className="text-[2rem] md:text-5xl font-extrabold text-black mb-6 leading-tight">
                   <span className="block">Financial flexibility for</span>
                   <AnimatePresence mode="wait">
                     <motion.span

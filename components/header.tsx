@@ -162,7 +162,7 @@ export default function Header() {
                 src="/images/rapid-advisory-logo.svg"
                 alt="Rapid Advisory Logo"
                 width={150}
-                height={32}
+                height={30}
                 priority
               />
             </Link>
@@ -200,7 +200,7 @@ export default function Header() {
                   onClick={() => setIsLoanSimulatorOpen(true)}
                   className="group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
                 >
-                  <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4 mr-2" />
+                  <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4" />
                   Simulate a loan
                 </Button>
                 {/* Gradient Border Button */}
@@ -209,7 +209,7 @@ export default function Header() {
                   onClick={() => setIsSchedulerOpen(true)}
                   className="rounded-full border border-[#ed2024] bg-white shadow-xl text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
                 >
-                  <Video className="w-4 h-4 mr-2" />
+                  <Video className="w-4 h-4" />
                   Book a call
                 </Button>
               </div>
@@ -223,15 +223,15 @@ export default function Header() {
                 onClick={() => setIsLoanSimulatorOpen(true)}
                 className=" group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
               >
-                <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4 mr-2" />
-                Simulate a loan
+                <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4" />
+                Simulate
               </Button>
               <Button
                 size="sm"
                 onClick={() => setIsSchedulerOpen(true)}
                 className=" rounded-full border border-[#ed2024] shadow-xl bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
               >
-                <Video className="w-4 h-4 mr-2" />
+                <Video className="w-4 h-4" />
                 Book a call
               </Button>
             </div>
