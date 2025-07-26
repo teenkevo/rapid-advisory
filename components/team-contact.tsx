@@ -85,8 +85,7 @@ export default function TeamContactSection() {
             The team that makes things happen
           </h2>
           <p className="text-lg text-slate-600 mb-8 max-w-2xl">
-            Get help 24/7, with our award-winning support network of payments
-            experts.
+            Driving your success is not just a goal—it's part of who we are.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button
