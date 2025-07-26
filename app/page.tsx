@@ -140,7 +140,7 @@ export default function Component() {
       </div>
 
       {/* Team Contact Section */}
-      <div id="team" className="scroll-mt-24">
+      <div id="about-us" className="scroll-mt-24">
         <TeamContactSection />
       </div>
 
