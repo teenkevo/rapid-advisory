@@ -23,6 +23,7 @@ import ServicesCards from "@/components/services-cards";
 import TeamContactSection from "@/components/team-contact";
 import ContactUsSection from "@/components/contact";
 import { ApplicationDialog } from "@/components/application-dialog";
+import Footer from "@/components/footer";
 
 const dynamicWords = [
   "you",
@@ -63,7 +64,7 @@ export default function Component() {
             {/* Left Side - Stats and Info */}
             <div className="space-y-8">
               <div>
-                <h1 className="text-3xl md:text-5xl font-bold text-slate-800 mb-6 leading-tight">
+                <h1 className="text-3xl md:text-5xl font-extrabold text-black mb-6 leading-tight">
                   <span className="block">Financial flexibility for</span>
                   <AnimatePresence mode="wait">
                     <motion.span
@@ -143,58 +144,8 @@ export default function Component() {
         <TeamContactSection />
       </div>
 
-      {/* Contact Us Section */}
-      <div id="contact" className="scroll-mt-16">
-        <ContactUsSection />
-      </div>
-
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12 px-4">
-        <div className="container mx-auto">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="bg-white p-2 rounded-lg">
-                <div className="text-red-600 font-bold text-xl">RA</div>
-              </div>
-              <div>
-                <h4 className="text-xl font-bold">Rapid Advisory</h4>
-                <p className="text-sm text-slate-400">FLEXIBLE FINANCE</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-center space-x-2 mb-6">
-              <Award className="w-5 h-5 text-yellow-400" />
-              <span className="text-slate-300">A Member of INTERNATIONAL</span>
-            </div>
-
-            <div className="flex justify-center space-x-6 mb-6">
-              <Link
-                href="#"
-                className="text-slate-400 hover:text-white transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-slate-400 hover:text-white transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-slate-400 hover:text-white transition-colors"
-              >
-                <MessageCircle className="w-5 h-5" />
-              </Link>
-            </div>
-
-            <p className="text-slate-400 text-sm">
-              © 2024 Rapid Advisory. All rights reserved. | Flexible Finance
-              Solutions
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       <ApplicationDialog
         open={applicationDialogOpen}

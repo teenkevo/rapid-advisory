@@ -16,17 +16,21 @@ import {
   Linkedin,
   MessageCircle,
   Video,
+  DollarSign,
+  Cog,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import MobileNav from "@/components/mobile-nav";
 import { SchedulerDialog } from "./scheduler-dialog";
+import { LoanSimulatorDialog } from "./loan-simulator-dialog";
 
 export default function Header() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
   const [showTopBar, setShowTopBar] = useState(true);
   const [isSchedulerOpen, setIsSchedulerOpen] = useState(false);
+  const [isLoanSimulatorOpen, setIsLoanSimulatorOpen] = useState(false);
   const scrollThreshold = 50;
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -66,19 +70,19 @@ export default function Header() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Link
-                    href="#"
+                    href="https://www.facebook.com/RapidAdvisory"
                     className="hover:text-blue-300 transition-colors"
                   >
                     <Facebook className="w-3 h-3 md:w-4 md:h-4" />
                   </Link>
                   <Link
-                    href="#"
+                    href="https://www.linkedin.com/company/rapid-advisory-services-limited/"
                     className="hover:text-blue-300 transition-colors"
                   >
                     <Linkedin className="w-3 h-3 md:w-4 md:h-4" />
                   </Link>
                   <Link
-                    href="#"
+                    href="https://twitter.com/RapidAdvisory"
                     className="hover:text-green-300 transition-colors"
                   >
                     <MessageCircle className="w-3 h-3 md:w-4 md:h-4" />
@@ -157,7 +161,7 @@ export default function Header() {
               <Image
                 src="/images/rapid-advisory-logo.svg"
                 alt="Rapid Advisory Logo"
-                width={120}
+                width={150}
                 height={32}
                 priority
               />
@@ -189,17 +193,20 @@ export default function Header() {
               >
                 Contact Us
               </Link>
-              <Link
-                href="#"
-                className="px-4 py-2 rounded-full text-slate-700 text-sm hover:bg-slate-100 transition-colors font-medium"
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setIsLoanSimulatorOpen(true)}
+                className="group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
               >
-                Customer Resources
-              </Link>
+                <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4 mr-2" />
+                Simulate a loan
+              </Button>
               {/* Gradient Border Button */}
               <Button
                 size="sm"
                 onClick={() => setIsSchedulerOpen(true)}
-                className="rounded-full border border-[#ed2024] bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
+                className="rounded-full border border-[#ed2024] bg-white shadow-xl text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
               >
                 <Video className="w-4 h-4 mr-2" />
                 Book a call
@@ -207,20 +214,35 @@ export default function Header() {
             </nav>
 
             {/* Mobile Hamburger Menu */}
-            <Button
-              size="sm"
-              onClick={() => setIsSchedulerOpen(true)}
-              className="md:hidden rounded-full border border-[#ed2024] bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
-            >
-              <Video className="w-4 h-4 mr-2" />
-              Book a call
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setIsLoanSimulatorOpen(true)}
+                className="md:hidden group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
+              >
+                <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4 mr-2" />
+                Simulate a loan
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => setIsSchedulerOpen(true)}
+                className="md:hidden rounded-full border border-[#ed2024] shadow-xl bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
+              >
+                <Video className="w-4 h-4 mr-2" />
+                Book a call
+              </Button>
+            </div>
           </div>
         </div>
       </motion.div>
       <SchedulerDialog
         open={isSchedulerOpen}
         onOpenChange={setIsSchedulerOpen}
+      />
+      <LoanSimulatorDialog
+        open={isLoanSimulatorOpen}
+        onOpenChange={setIsLoanSimulatorOpen}
       />
     </header>
   );

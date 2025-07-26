@@ -154,6 +154,9 @@ export function ApplicationDialog({
   >("service");
   const [selectedService, setSelectedService] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<string>("");
+  // New state to track if the initial defaultService has been processed for the current open session
+  const [initialDefaultServiceSet, setInitialDefaultServiceSet] =
+    useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -179,20 +182,31 @@ export function ApplicationDialog({
   // Reset and sync state when dialog opens or defaultService changes
   useEffect(() => {
     if (open) {
-      // Reset all state when dialog opens
-      setSelectedOption("");
-      reset();
+      // Dialog is opening or already open
+      setSelectedOption(""); // Always reset option when dialog is open
+      reset(); // Always reset form when dialog is open
 
-      // Set the service and step based on defaultService
-      if (defaultService) {
+      // Only set default service if it's provided and hasn't been processed for this opening
+      if (defaultService && !initialDefaultServiceSet) {
         setSelectedService(defaultService);
         setStep("options");
-      } else {
+        setInitialDefaultServiceSet(true); // Mark as set for this session
+      } else if (!defaultService && !initialDefaultServiceSet) {
+        // If no defaultService is provided on open, start from service selection
         setSelectedService("");
         setStep("service");
+        setInitialDefaultServiceSet(true); // Mark as processed for this opening, even if no default
       }
+      // If defaultService changes while open and initialDefaultServiceSet is true, do nothing.
+    } else {
+      // Dialog is closing
+      setInitialDefaultServiceSet(false); // Reset for next opening
+      setSelectedService(""); // Reset service on close
+      setSelectedOption(""); // Reset option on close
+      setStep("service"); // Reset step on close
+      reset(); // Reset form on close
     }
-  }, [open, defaultService, reset]);
+  }, [open, defaultService, reset, initialDefaultServiceSet]); // Add initialDefaultServiceSet to dependencies
 
   const handleServiceSelect = (service: string) => {
     if (service) {
@@ -223,6 +237,7 @@ export function ApplicationDialog({
     setSelectedService("");
     setSelectedOption("");
     reset();
+    setInitialDefaultServiceSet(false); // Ensure this is reset on close
     onOpenChange(false);
   };
 
@@ -302,7 +317,6 @@ export function ApplicationDialog({
           </p>
         </div>
       )}
-
       {step === "options" && (
         <div className="space-y-4">
           {selectedServiceData && (
@@ -378,7 +392,6 @@ export function ApplicationDialog({
           </div>
         </div>
       )}
-
       {step === "details" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -477,7 +490,6 @@ export function ApplicationDialog({
           </form>
         </div>
       )}
-
       {step === "confirmation" && (
         <div className="text-center space-y-6">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
@@ -558,8 +570,8 @@ export function ApplicationDialog({
             {step !== "confirmation" && (
               <>
                 <SheetTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-[#ed2024]" />
-                  Apply for Financial Services
+                  <FileText className="h-5 w-5 text-[#ed2024]" /> Apply for
+                  Financial Services
                 </SheetTitle>
                 <SheetDescription className="text-start">
                   Submit your application for our financial services
@@ -580,8 +592,8 @@ export function ApplicationDialog({
           {step !== "confirmation" && (
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5 text-[#ed2024]" />
-                Apply for Financial Services
+                <FileText className="h-5 w-5 text-[#ed2024]" /> Apply for
+                Financial Services
               </DialogTitle>
               <DialogDescription>
                 Submit your application for our financial services
