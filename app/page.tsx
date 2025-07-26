@@ -135,17 +135,19 @@ export default function Component() {
       </section>
 
       {/* Services Section */}
-      <div id="products" className="scroll-mt-16">
+      <div id="products" className="scroll-mt-24">
         <ServicesCards />
       </div>
 
       {/* Team Contact Section */}
-      <div id="team" className="scroll-mt-16">
+      <div id="team" className="scroll-mt-24">
         <TeamContactSection />
       </div>
 
       {/* Footer */}
-      <Footer />
+      <div id="contact" className="scroll-mt-16">
+        <Footer />
+      </div>
 
       <ApplicationDialog
         open={applicationDialogOpen}

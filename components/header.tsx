@@ -193,33 +193,35 @@ export default function Header() {
               >
                 Contact Us
               </Link>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setIsLoanSimulatorOpen(true)}
-                className="group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
-              >
-                <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4 mr-2" />
-                Simulate a loan
-              </Button>
-              {/* Gradient Border Button */}
-              <Button
-                size="sm"
-                onClick={() => setIsSchedulerOpen(true)}
-                className="rounded-full border border-[#ed2024] bg-white shadow-xl text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
-              >
-                <Video className="w-4 h-4 mr-2" />
-                Book a call
-              </Button>
+              <div className="flex items-center space-x-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setIsLoanSimulatorOpen(true)}
+                  className="group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
+                >
+                  <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4 mr-2" />
+                  Simulate a loan
+                </Button>
+                {/* Gradient Border Button */}
+                <Button
+                  size="sm"
+                  onClick={() => setIsSchedulerOpen(true)}
+                  className="rounded-full border border-[#ed2024] bg-white shadow-xl text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
+                >
+                  <Video className="w-4 h-4 mr-2" />
+                  Book a call
+                </Button>
+              </div>
             </nav>
 
             {/* Mobile Hamburger Menu */}
-            <div className="flex items-center space-x-2">
+            <div className="lg:hidden flex items-center space-x-2">
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => setIsLoanSimulatorOpen(true)}
-                className="md:hidden group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
+                className=" group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
               >
                 <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4 mr-2" />
                 Simulate a loan
@@ -227,7 +229,7 @@ export default function Header() {
               <Button
                 size="sm"
                 onClick={() => setIsSchedulerOpen(true)}
-                className="md:hidden rounded-full border border-[#ed2024] shadow-xl bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
+                className=" rounded-full border border-[#ed2024] shadow-xl bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
               >
                 <Video className="w-4 h-4 mr-2" />
                 Book a call
