@@ -161,7 +161,7 @@ export default function Header() {
               <Image
                 src="/images/rapid-advisory-logo.svg"
                 alt="Rapid Advisory Logo"
-                width={150}
+                width={130}
                 height={30}
                 priority
               />

@@ -154,7 +154,6 @@ export function ApplicationDialog({
   >("service");
   const [selectedService, setSelectedService] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<string>("");
-  // New state to track if the initial defaultService has been processed for the current open session
   const [initialDefaultServiceSet, setInitialDefaultServiceSet] =
     useState(false);
 
@@ -179,25 +178,24 @@ export function ApplicationDialog({
     reset,
   } = form;
 
-  // Reset and sync state when dialog opens or defaultService changes
   useEffect(() => {
     if (open) {
-      // Dialog is opening or already open
-      setSelectedOption(""); // Always reset option when dialog is open
-      reset(); // Always reset form when dialog is open
+      // Only initialize state if it's the first time the dialog is opened in this session
+      if (!initialDefaultServiceSet) {
+        reset(); // Reset form on initial open
+        setSelectedOption(""); // Reset selected option on initial open
 
-      // Only set default service if it's provided and hasn't been processed for this opening
-      if (defaultService && !initialDefaultServiceSet) {
-        setSelectedService(defaultService);
-        setStep("options");
-        setInitialDefaultServiceSet(true); // Mark as set for this session
-      } else if (!defaultService && !initialDefaultServiceSet) {
-        // If no defaultService is provided on open, start from service selection
-        setSelectedService("");
-        setStep("service");
-        setInitialDefaultServiceSet(true); // Mark as processed for this opening, even if no default
+        if (defaultService) {
+          setSelectedService(defaultService);
+          setStep("options");
+        } else {
+          setSelectedService("");
+          setStep("service");
+        }
+        setInitialDefaultServiceSet(true);
       }
-      // If defaultService changes while open and initialDefaultServiceSet is true, do nothing.
+      // If dialog is already open (initialDefaultServiceSet is true), do nothing here
+      // to prevent external defaultService changes from affecting current interaction.
     } else {
       // Dialog is closing
       setInitialDefaultServiceSet(false); // Reset for next opening
@@ -206,11 +204,12 @@ export function ApplicationDialog({
       setStep("service"); // Reset step on close
       reset(); // Reset form on close
     }
-  }, [open, defaultService, reset, initialDefaultServiceSet]); // Add initialDefaultServiceSet to dependencies
+  }, [open, defaultService, reset, initialDefaultServiceSet]);
 
   const handleServiceSelect = (service: string) => {
     if (service) {
       setSelectedService(service);
+      setSelectedOption(""); // Reset selected option when service changes
       setStep("options");
     }
   };
