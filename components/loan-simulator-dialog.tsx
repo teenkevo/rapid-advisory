@@ -59,8 +59,8 @@ interface LoanSimulatorDialogProps {
 const loanTypes = [
   {
     id: "working-capital",
-    name: "Working Capital Financing",
-    description: "Short-term business funding",
+    name: "Working Capital",
+    description: "Short-term funding",
     icon: Building2,
     minAmount: 500000,
     maxAmount: 50000000,
@@ -236,7 +236,7 @@ export function LoanSimulatorDialog({
               type="single"
               value={selectedLoanType}
               onValueChange={handleLoanTypeChange}
-              className="grid grid-cols-1 md:grid-cols-2 gap-3"
+              className="grid grid-cols-2 md:grid-cols-2 gap-3"
             >
               {loanTypes.map((loan) => {
                 const Icon = loan.icon;
@@ -382,22 +382,22 @@ export function LoanSimulatorDialog({
 
                 <Card>
                   <CardContent className="p-4 space-y-4">
-                    <div className="grid grid-cols-3 gap-4 text-center">
+                    <div className="grid grid-cols-3 gap-4 text-start">
                       <div>
                         <p className="text-sm text-gray-500">Principal</p>
-                        <p className="font-semibold">
+                        <p className="font-semibold md:text-base text-sm">
                           {formatCurrency(loanAmount[0])}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Total Interest</p>
-                        <p className="font-semibold text-orange-600">
+                        <p className="text-sm text-gray-500">Interest</p>
+                        <p className="font-semibold text-orange-600 md:text-base text-sm">
                           {formatCurrency(totalInterest)}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Total Repayment</p>
-                        <p className="font-semibold text-[#ed2024]">
+                        <p className="text-sm text-gray-500">Repayment</p>
+                        <p className="font-semibold text-[#ed2024] md:text-base text-sm">
                           {formatCurrency(totalAmount)}
                         </p>
                       </div>
