@@ -44,7 +44,7 @@ export default function Header() {
   });
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50">
+    <header className=" fixed top-0 left-0 w-full z-50">
       {/* Top Contact Bar - Animates out on scroll down */}
       <AnimatePresence>
         {showTopBar && (
@@ -53,7 +53,7 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="bg-slate-900 text-white overflow-hidden"
+            className="bg-[#FFCA0B] text-black overflow-hidden"
           >
             <div className="container mx-auto px-4 py-2">
               {/* Desktop layout */}
@@ -146,7 +146,7 @@ export default function Header() {
 
       {/* Main Navigation Bar - Always white, shadow appears on scroll */}
       <motion.div
-        className="w-full bg-white" // Always has a white background
+        className="w-full bg-black/90 backdrop-blur-sm" // Always has a white background
         animate={{
           boxShadow: isScrolled
             ? "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
@@ -159,7 +159,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="/images/rapid-advisory-logo.svg"
+                src="/images/rapid-advisory-logo-yellow-white-green.svg"
                 alt="Rapid Advisory Logo"
                 width={130}
                 height={30}
@@ -171,25 +171,25 @@ export default function Header() {
             <nav className="hidden lg:flex items-center space-x-2">
               <Link
                 href="#products"
-                className="px-4 py-2 rounded-full text-slate-700 text-sm hover:bg-slate-100 transition-colors font-medium"
+                className="px-4 py-2 rounded-full text-white text-sm hover:bg-slate-100 transition-colors font-medium"
               >
                 Products
               </Link>
               <Link
                 href="#products"
-                className="px-4 py-2 rounded-full text-slate-700 text-sm hover:bg-slate-100 transition-colors font-medium"
+                className="px-4 py-2 rounded-full text-white text-sm hover:bg-slate-100 transition-colors font-medium"
               >
                 Pricing
               </Link>
               <Link
                 href="#team"
-                className="px-4 py-2 rounded-full text-slate-700 text-sm hover:bg-slate-100 transition-colors font-medium"
+                className="px-4 py-2 rounded-full text-white text-sm hover:bg-slate-100 transition-colors font-medium"
               >
                 The Team
               </Link>
               <Link
                 href="#contact"
-                className="px-4 py-2 rounded-full text-slate-700 text-sm hover:bg-slate-100 transition-colors font-medium"
+                className="px-4 py-2 rounded-full text-white text-sm hover:bg-slate-100 transition-colors font-medium"
               >
                 Contact Us
               </Link>
@@ -198,16 +198,16 @@ export default function Header() {
                   size="sm"
                   variant="outline"
                   onClick={() => setIsLoanSimulatorOpen(true)}
-                  className="group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
+                  className="group rounded-full border  bg-white shadow-xl hover:bg-[#039744]  hover:text-white transition-all duration-300"
                 >
-                  <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4" />
+                  <Cog className="w-4 text-[#039744] group-hover:text-white h-4" />
                   Simulate a loan
                 </Button>
                 {/* Gradient Border Button */}
                 <Button
                   size="sm"
                   onClick={() => setIsSchedulerOpen(true)}
-                  className="rounded-full border border-[#ed2024] bg-white shadow-xl text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
+                  className="rounded-full border border-[#2ff484] bg-[#039744] shadow-xl text-white hover:shadow-xl hover:bg-[#039744]/90 hover:text-white transition-all duration-300"
                 >
                   <Video className="w-4 h-4" />
                   Book a call
@@ -221,15 +221,15 @@ export default function Header() {
                 size="sm"
                 variant="outline"
                 onClick={() => setIsLoanSimulatorOpen(true)}
-                className=" group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
+                className="group rounded-full border  bg-white shadow-xl hover:bg-[#22925f]  hover:text-white transition-all duration-300"
               >
-                <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4" />
+                <Cog className="w-4 text-[#22925f] group-hover:text-white h-4" />
                 Simulate
               </Button>
               <Button
                 size="sm"
                 onClick={() => setIsSchedulerOpen(true)}
-                className=" rounded-full border border-[#ed2024] shadow-xl bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
+                className="rounded-full border border-[#2ff484] bg-[#039744] shadow-xl text-white hover:shadow-xl hover:bg-[#039744]/90 hover:text-white transition-all duration-300"
               >
                 <Video className="w-4 h-4" />
                 Book a call

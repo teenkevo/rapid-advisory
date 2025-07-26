@@ -31,7 +31,7 @@ const cards = [
     image:
       "https://images.unsplash.com/photo-1647942678221-94be1784f107?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     gradient:
-      "from-[#15549a]/90 from-10% via-[#15549a]/60 via-40% to-transparent",
+      "from-[#FFCA0B]/90 from-10% via-[#FFCA0B]/60 via-40% to-transparent",
     tags: ["Emergency Funding", "Same Day"],
     tagBgColor: "bg-white",
     tagTextColor: "text-slate-800",
@@ -48,7 +48,8 @@ const cards = [
       "Professional investment management for individuals and companies to increase portfolio value.",
     image:
       "https://images.unsplash.com/photo-1563986768711-b3bde3dc821e?q=80&w=3268&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    gradient: "from-black/90 from-10% via-black/60 via-40% to-transparent",
+    gradient:
+      "from-[#039744]/90 from-10% via-[#039744]/60 via-40% to-transparent",
     tags: ["Expert Management", "Growth Focused"],
     tagBgColor: "bg-white",
     tagTextColor: "text-slate-800",
@@ -149,7 +150,7 @@ export default function HeroCarousel() {
               <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
                 <Button
                   onClick={() => setApplicationDialogOpen(true)}
-                  className="group inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-white text-[#ed2024] border-2 border-[#ed2024] transition-all duration-300 ease-in-out hover:bg-red-50 hover:pl-5 hover:pr-3"
+                  className="group inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-white text-[#039744] border-2 border-[#039744] transition-all duration-300 ease-in-out hover:bg-[#039744] hover:text-white pl-5 hover:pr-3"
                 >
                   <span>Apply Now</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />

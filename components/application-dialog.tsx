@@ -291,17 +291,17 @@ export function ApplicationDialog({
                   <ToggleGroupItem
                     key={service.id}
                     value={service.id}
-                    className="w-full h-auto p-4 border-2 border-slate-200 hover:border-[#ed2024] data-[state=on]:border-[#ed2024] data-[state=on]:bg-red-50 data-[state=on]:text-[#ed2024] rounded-lg transition-all duration-200"
+                    className="w-full h-auto p-4 border-2 border-slate-200 hover:border-[#039744] data-[state=on]:border-[#039744] data-[state=on]:bg-[#039744]/10 data-[state=on]:text-[#039744] rounded-lg transition-all duration-200"
                   >
                     <div className="flex items-start gap-4 text-left w-full">
-                      <div className="flex-shrink-0 w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center group-data-[state=on]:bg-red-100">
+                      <div className="flex-shrink-0 w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center group-data-[state=on]:bg-[#039744]/10">
                         <Icon className="h-6 w-6 group-data-[state=on]:text-black" />
                       </div>
                       <div className="flex-1">
                         <h4 className="font-semibold text-base mb-1">
                           {service.name}
                         </h4>
-                        <p className="text-sm text-slate-600 group-data-[state=on]:text-red-700">
+                        <p className="text-sm text-slate-600 group-data-[state=on]:text-[#039744]">
                           {service.description}
                         </p>
                       </div>
@@ -369,17 +369,17 @@ export function ApplicationDialog({
                 >
                   <ToggleGroupItem
                     value={option.id}
-                    className="w-full h-auto p-4 border-2 border-slate-200 hover:border-[#ed2024] data-[state=on]:border-[#ed2024] data-[state=on]:bg-red-50 data-[state=on]:text-[#ed2024] rounded-lg transition-all duration-200"
+                    className="w-full h-auto p-4 border-2 border-slate-200 hover:border-[#039744] data-[state=on]:border-[#039744] data-[state=on]:bg-[#039744]/10 data-[state=on]:text-[#039744] rounded-lg transition-all duration-200"
                   >
                     <div className="flex items-start gap-4 text-left w-full">
-                      <div className="flex-shrink-0 w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center group-data-[state=on]:bg-red-100">
-                        <DollarSign className="h-5 w-5 text-slate-600 group-data-[state=on]:text-[#ed2024]" />
+                      <div className="flex-shrink-0 w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center group-data-[state=on]:bg-[#039744]/10">
+                        <DollarSign className="h-5 w-5 text-slate-600 group-data-[state=on]:text-[#039744]" />
                       </div>
                       <div className="flex-1">
                         <h4 className="font-semibold text-base mb-1">
                           {option.name}
                         </h4>
-                        <p className="text-sm text-slate-600 group-data-[state=on]:text-red-700">
+                        <p className="text-sm text-slate-600 group-data-[state=on]:text-[#039744]">
                           {option.description}
                         </p>
                       </div>
@@ -482,7 +482,7 @@ export function ApplicationDialog({
             </div>
             <Button
               type="submit"
-              className="w-full bg-[#ed2024] hover:bg-[#d11d21]"
+              className="w-full bg-[#039744]/90 hover:bg-[#039744]"
             >
               Submit Application
             </Button>
@@ -491,8 +491,8 @@ export function ApplicationDialog({
       )}
       {step === "confirmation" && (
         <div className="text-center space-y-6">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-            <Check className="h-8 w-8 text-[#ed2024]" />
+          <div className="w-16 h-16 bg-[#039744]/20 rounded-full flex items-center justify-center mx-auto">
+            <Check className="h-8 w-8 text-[#039744]" />
           </div>
           <div>
             <h3 className="text-xl font-bold mb-2">Application Submitted!</h3>
@@ -505,7 +505,7 @@ export function ApplicationDialog({
             </div>
           </div>
           <Card>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-2 p-4 space-y-1">
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 p-4 space-y-1">
               {selectedServiceData && (
                 <div className="flex items-center gap-3">
                   <selectedServiceData.icon className="h-4 w-4 text-black" />
@@ -553,7 +553,10 @@ export function ApplicationDialog({
           <div className="space-y-3 text-sm text-gray-500 font-light">
             <p>Please prepare any required documents for faster processing</p>
           </div>
-          <Button onClick={handleClose} className="w-full">
+          <Button
+            onClick={handleClose}
+            className="w-full bg-[#039744]/90 hover:bg-[#039744]"
+          >
             Close
           </Button>
         </div>
@@ -569,7 +572,7 @@ export function ApplicationDialog({
             {step !== "confirmation" && (
               <>
                 <SheetTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-[#ed2024]" /> Apply for
+                  <FileText className="h-5 w-5 text-[#039744]" /> Apply for
                   Financial Services
                 </SheetTitle>
                 <SheetDescription className="text-start">
@@ -591,7 +594,7 @@ export function ApplicationDialog({
           {step !== "confirmation" && (
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5 text-[#ed2024]" /> Apply for
+                <FileText className="h-5 w-5 text-[#039744]" /> Apply for
                 Financial Services
               </DialogTitle>
               <DialogDescription>
