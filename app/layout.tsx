@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Rapid Advisory",
-  description: "Flexible Finance and Beyond.",
+  description: "Rapid Advisory",
 };
 
 export const viewport: Viewport = {

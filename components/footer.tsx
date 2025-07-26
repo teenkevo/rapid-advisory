@@ -30,7 +30,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <Link href="/" className="text-white">
               <Image
-                src="/images/rapid-advisory-logo-yellow-white-green.svg"
+                src="/images/rapid-advisory-logo.svg"
                 width="150"
                 height="120"
                 alt="GETLAB logo light mode"
@@ -64,14 +64,14 @@ export default function Footer() {
                   <Button
                     onClick={() => setApplicationDialogOpen(true)}
                     size="sm"
-                    className="bg-gradient-to-b from-[#039744]/90 to-[#039744] hover:bg-[#039744] text-white px-8 py-3 rounded-full"
+                    className="bg-[#ed2024] hover:bg-[#c41a1d] text-white px-8 py-3 rounded-full"
                   >
                     Apply Now
                   </Button>
                   <Button
                     size="sm"
                     onClick={() => setIsSchedulerOpen(true)}
-                    className="rounded-full border border-[#22925f] bg-white shadow-xl text-[#22925f] hover:shadow-xl hover:text-black hover:bg-white transition-all duration-300"
+                    className="rounded-full border border-[#ed2024] bg-white shadow-xl text-[#ed2024] hover:shadow-xl hover:text-black hover:bg-white transition-all duration-300"
                   >
                     <Video className="w-4 h-4" />
                     Book a call
@@ -92,7 +92,7 @@ export default function Footer() {
                 width="100%"
                 height="400"
                 style={{
-                  border: "2px solid #22925f",
+                  border: "2px solid #ed2024",
                   borderRadius: "10px",
                 }}
                 allowFullScreen
