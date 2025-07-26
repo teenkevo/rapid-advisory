@@ -210,7 +210,7 @@ export default function Header() {
             <Button
               size="sm"
               onClick={() => setIsSchedulerOpen(true)}
-              className="rounded-full border border-[#ed2024] bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
+              className="md:hidden rounded-full border border-[#ed2024] bg-white text-[#ed2024] hover:shadow-xl hover:bg-[#ed2024] hover:text-white transition-all duration-300"
             >
               <Video className="w-4 h-4 mr-2" />
               Book a call

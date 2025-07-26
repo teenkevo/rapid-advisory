@@ -1,9 +1,9 @@
 "use client";
-
-import type React from "react";
-
 import { useState } from "react";
 import { z } from "zod";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   CalendarIcon,
   Clock,
@@ -16,7 +16,6 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { format, isAfter, startOfDay } from "date-fns";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -40,7 +39,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { PhoneInput } from "./ui/phone-input";
-import { E164Number } from "libphonenumber-js";
+import { isValidPhoneNumber } from "react-phone-number-input";
 import { useMediaQuery } from "../hooks/use-media-query";
 
 interface SchedulerDialogProps {
@@ -87,8 +86,10 @@ const timeSlots = [
 
 const formSchema = z.object({
   name: z.string().min(2, "Required"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(1, "Required"),
+  email: z.string().email("Enter a valid email address"),
+  phone: z.string().refine((value) => isValidPhoneNumber(value || ""), {
+    message: "Enter a valid phone number",
+  }),
   message: z.string().optional(),
 });
 
@@ -102,49 +103,26 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
   const [selectedService, setSelectedService] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>("");
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
+
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    mode: "onChange",
+    reValidateMode: "onChange",
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
   });
-  const [errors, setErrors] = useState<Partial<FormData>>({});
 
-  const validateField = (field: keyof FormData, value: string) => {
-    try {
-      if (field === "name") {
-        formSchema.shape.name.parse(value);
-      } else if (field === "email") {
-        formSchema.shape.email.parse(value);
-      } else if (field === "phone") {
-        formSchema.shape.phone.parse(value);
-      }
-      setErrors((prev) => ({ ...prev, [field]: undefined }));
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const fieldError = error.errors.find((err) => err.path[0] === field);
-        if (fieldError) {
-          setErrors((prev) => ({ ...prev, [field]: fieldError.message }));
-        }
-      }
-    }
-  };
-
-  const handleNameChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, name: value }));
-    validateField("name", value);
-  };
-
-  const handleEmailChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, email: value }));
-    validateField("email", value);
-  };
-
-  const handlePhoneChange = (phone: E164Number | undefined) => {
-    const value = phone || "";
-    setFormData((prev) => ({ ...prev, phone: value }));
-    validateField("phone", value);
-  };
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+  } = form;
 
   const handleServiceSelect = (service: string) => {
     if (service) {
@@ -156,7 +134,10 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
   const handleDateSelect = (date: Date | undefined) => {
     if (date) {
       setSelectedDate(date);
-      setStep("time");
+      // On mobile, go to time step; on desktop, stay on date step
+      if (isMobile) {
+        setStep("time");
+      }
     }
   };
 
@@ -165,24 +146,9 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
     setStep("details");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const validatedData = formSchema.parse(formData);
-      setErrors({});
-      setStep("confirmation");
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const fieldErrors: Partial<FormData> = {};
-        error.errors.forEach((err) => {
-          if (err.path[0]) {
-            fieldErrors[err.path[0] as keyof FormData] = err.message;
-          }
-        });
-        setErrors(fieldErrors);
-      }
-    }
+  const onSubmit = (data: FormData) => {
+    console.log("Form submitted:", data);
+    setStep("confirmation");
   };
 
   const handleClose = () => {
@@ -190,8 +156,7 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
     setSelectedService("");
     setSelectedDate(undefined);
     setSelectedTime("");
-    setFormData({ name: "", email: "", phone: "", message: "" });
-    setErrors({});
+    reset();
     onOpenChange(false);
   };
 
@@ -203,6 +168,15 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
   };
 
   const selectedServiceData = services.find((s) => s.id === selectedService);
+
+  // Calculate dialog width based on whether date is selected
+  const getDialogWidth = () => {
+    if (isMobile) return "100%"; // Mobile uses sheet, so this doesn't matter
+    if (step === "date" && selectedDate) {
+      return "580px"; // Expanded width for calendar + time slots
+    }
+    return "500px"; // Default width for just calendar
+  };
 
   const content = (
     <>
@@ -254,9 +228,9 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
           {selectedServiceData && (
             <>
               <div className="flex items-center justify-between">
-                <h3 className="font-medium">Service Details</h3>
+                <h3 className="font-semibold">1. Service Details</h3>
               </div>
-              <Card className="border-red-500 border-2 ">
+              <Card className="border-gray-200 border-2 ">
                 <CardContent className="p-3">
                   <div className="flex items-center justify-between gap-3">
                     <div>
@@ -280,35 +254,105 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
             </>
           )}
           <div className="flex items-center justify-between">
-            <h3 className="font-medium">Select a Date</h3>
+            <h3 className="font-semibold">
+              {isMobile ? "2. Select a Date" : "3. Select Date & Time"}
+            </h3>
           </div>
-
-          <div>
-            <Calendar
-              mode="single"
-              selected={selectedDate}
-              onSelect={handleDateSelect}
-              disabled={isDateDisabled}
-              initialFocus
-              className="rounded-md border"
-            />
-          </div>
-          <p className="text-sm text-slate-600">
-            Available Monday through Friday. Weekend appointments available upon
-            request.
-          </p>
+          {isMobile ? (
+            // Mobile: Full width calendar only
+            <div>
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={handleDateSelect}
+                disabled={isDateDisabled}
+                initialFocus
+                className="w-full"
+              />
+            </div>
+          ) : (
+            // Desktop: Side-by-side layout with animation
+            <motion.div
+              className="flex gap-4"
+              layout
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              {/* Calendar */}
+              <div className="flex-shrink-0">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateSelect}
+                  disabled={isDateDisabled}
+                  initialFocus
+                  className="rounded-md border"
+                />
+              </div>
+              {/* Time slots column - animated entry */}
+              <AnimatePresence>
+                {selectedDate && (
+                  <motion.div
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{ width: "192px", opacity: 1 }}
+                    exit={{ width: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="w-48">
+                      <div className="mb-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <CalendarIcon className="h-4 w-4 text-[#ed2024]" />
+                          <span className="text-sm font-medium">
+                            {format(selectedDate, "MMM d, yyyy")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="max-h-80 overflow-y-auto space-y-2 pr-2">
+                        {timeSlots.map((time, index) => (
+                          <motion.div
+                            key={time}
+                            initial={{ x: 20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{
+                              duration: 0.2,
+                              delay: index * 0.03,
+                              ease: "easeOut",
+                            }}
+                          >
+                            <Button
+                              variant={
+                                selectedTime === time ? "default" : "outline"
+                              }
+                              className={`w-full justify-start font-light text-sm ${
+                                selectedTime === time
+                                  ? "bg-[#ed2024] hover:bg-[#d11d21] text-white"
+                                  : "hover:bg-red-50 hover:border-[#ed2024] bg-transparent"
+                              }`}
+                              onClick={() => handleTimeSelect(time)}
+                            >
+                              <Clock className="h-4 w-4 mr-2" />
+                              {time}
+                            </Button>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
         </div>
       )}
 
       {step === "time" && selectedDate && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold">Select a Time</h3>
-            <Button variant="ghost" size="sm" onClick={() => setStep("date")}>
+            <h3 className="font-semibold">3. Select a Time</h3>
+            <Button variant="outline" size="sm" onClick={() => setStep("date")}>
               Change Date
             </Button>
           </div>
-
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-3">
@@ -317,7 +361,7 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
                   {format(selectedDate, "EEEE, MMMM d, yyyy")}
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 {timeSlots.map((time) => (
                   <Button
                     key={time}
@@ -338,92 +382,90 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
       {step === "details" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold">Your Information</h3>
-            <Button variant="outline" size="sm" onClick={() => setStep("time")}>
-              Change Time
+            <h3 className="font-semibold">4. Your Information</h3>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setStep(isMobile ? "time" : "date")}
+            >
+              Change {isMobile ? "Time" : "Date/Time"}
             </Button>
           </div>
-
           <Card>
             <CardContent className="p-4 space-y-1">
               {selectedServiceData && (
                 <div className="flex items-center gap-2 mb-2">
-                  <selectedServiceData.icon className="h-4 w-4 text-[#ed2024]" />
-                  <span className="text-sm">{selectedServiceData.name}</span>
+                  <selectedServiceData.icon className="h-4 w-4 text-gray-500" />
+                  <span className="text-sm font-light">
+                    {selectedServiceData.name}
+                  </span>
                 </div>
               )}
               <div className="flex items-center gap-2 mb-2">
-                <CalendarIcon className="h-4 w-4 text-[#ed2024]" />
-                <span className="text-sm">
+                <CalendarIcon className="h-4 w-4 text-gray-500" />
+                <span className="text-sm font-light">
                   {format(selectedDate!, "EEEE, MMMM d, yyyy")}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-[#ed2024]" />
-                <span className="text-sm">{selectedTime}</span>
+                <Clock className="h-4 w-4 text-gray-500" />
+                <span className="text-sm font-light">{selectedTime}</span>
                 <Badge variant="secondary">30 minutes</Badge>
               </div>
             </CardContent>
           </Card>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name *</Label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => handleNameChange(e.target.value)}
-                  placeholder="John Doe"
-                />
+                <Input id="name" {...register("name")} placeholder="John Doe" />
                 {errors.name && (
-                  <p className="text-sm text-red-500">{errors.name}</p>
+                  <p className="text-sm text-red-500">{errors.name.message}</p>
                 )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number *</Label>
-                <PhoneInput
-                  id="phone"
-                  defaultCountry="UG"
-                  placeholder="Enter a phone number e.g. +256 792 445002"
-                  value={formData.phone}
-                  onChange={handlePhoneChange}
+                <Controller
+                  name="phone"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <PhoneInput
+                      id="phone"
+                      defaultCountry="UG"
+                      placeholder="Enter a phone number e.g. +256 792 445002"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
                 />
                 {errors.phone && (
-                  <p className="text-sm text-red-500">{errors.phone}</p>
+                  <p className="text-sm text-red-500">{errors.phone.message}</p>
                 )}
               </div>
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="email">Email Address *</Label>
               <Input
                 id="email"
                 type="email"
-                value={formData.email}
-                onChange={(e) => handleEmailChange(e.target.value)}
+                {...register("email")}
                 placeholder="john@example.com"
               />
               {errors.email && (
-                <p className="text-sm text-red-500">{errors.email}</p>
+                <p className="text-sm text-red-500">{errors.email.message}</p>
               )}
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="message">
                 What would you like to discuss? (Optional)
               </Label>
               <Textarea
                 id="message"
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
+                {...register("message")}
                 placeholder="Brief description of your financial goals or questions..."
                 rows={3}
               />
             </div>
-
             <Button
               type="submit"
               className="w-full bg-[#ed2024] hover:bg-[#d11d21]"
@@ -443,14 +485,14 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
             <h3 className="text-xl font-bold mb-2">Appointment Confirmed!</h3>
             <div className=" space-y-3 text-sm text-gray-500 font-light leading-5">
               A confirmation email has been sent to{" "}
-              <span className="font-medium">{formData.email}</span>. We'll call
-              you at <span className="font-medium">{formData.phone}</span> at
+              <span className="font-medium">{form.getValues("email")}</span>.
+              We'll call you at{" "}
+              <span className="font-medium">{form.getValues("phone")}</span> at
               the scheduled time.
             </div>
           </div>
-
           <Card>
-            <CardContent className="grid grid-cols-2 gap-2 p-4 space-y-1">
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-2 p-4 space-y-1">
               {selectedServiceData && (
                 <div className="flex items-center gap-3">
                   <selectedServiceData.icon className="h-4 w-4 text-black" />
@@ -461,7 +503,9 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
               )}
               <div className="flex items-center gap-3">
                 <User className="h-4 w-4 text-black" />
-                <span className="text-sm font-light">{formData.name}</span>
+                <span className="text-sm font-light">
+                  {form.getValues("name")}
+                </span>
               </div>
               <div className="flex items-center gap-3">
                 <CalendarIcon className="h-4 w-4 text-black" />
@@ -477,15 +521,18 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-black" />
-                <span className="text-sm font-light">{formData.email}</span>
+                <span className="text-sm font-light truncate">
+                  {form.getValues("email")}
+                </span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-black" />
-                <span className="text-sm font-light">{formData.phone}</span>
+                <span className="text-sm font-light">
+                  {form.getValues("phone")}
+                </span>
               </div>
             </CardContent>
           </Card>
-
           <Button onClick={handleClose} className="w-full">
             Close
           </Button>
@@ -499,13 +546,17 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
       <Sheet open={open} onOpenChange={handleClose}>
         <SheetContent side="bottom" className="h-[90vh] overflow-y-auto">
           <SheetHeader>
-            <SheetTitle className="flex items-center gap-2">
-              <CalendarIcon className="h-5 w-5 text-[#ed2024]" />
-              Schedule Your Consultation
-            </SheetTitle>
-            <SheetDescription>
-              Book a free 30-minute consultation with our financial experts
-            </SheetDescription>
+            {step !== "confirmation" && (
+              <>
+                <SheetTitle className="flex items-center gap-2">
+                  <CalendarIcon className="h-5 w-5 text-[#ed2024]" />
+                  Schedule Your Consultation
+                </SheetTitle>
+                <SheetDescription className="text-start">
+                  Book a free 30-minute consultation with our financial experts
+                </SheetDescription>
+              </>
+            )}
           </SheetHeader>
           <div className="mt-6">{content}</div>
         </SheetContent>
@@ -515,18 +566,31 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <CalendarIcon className="h-5 w-5 text-[#ed2024]" />
-            Schedule Your Consultation
-          </DialogTitle>
-          <DialogDescription>
-            Book a free 30-minute consultation with our financial experts
-          </DialogDescription>
-        </DialogHeader>
-        {content}
-      </DialogContent>
+      <motion.div
+        animate={{ width: getDialogWidth() }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="mx-auto"
+      >
+        <DialogContent
+          className="max-h-[90vh] overflow-y-auto p-0"
+          style={{ width: "100%", maxWidth: getDialogWidth() }}
+        >
+          <div className="p-6">
+            {step !== "confirmation" && (
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <CalendarIcon className="h-5 w-5 text-[#ed2024]" />
+                  Schedule Your Consultation
+                </DialogTitle>
+                <DialogDescription>
+                  Book a free 30-minute consultation with our financial experts
+                </DialogDescription>
+              </DialogHeader>
+            )}
+            <div className="mt-6">{content}</div>
+          </div>
+        </DialogContent>
+      </motion.div>
     </Dialog>
   );
 }

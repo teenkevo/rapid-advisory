@@ -101,7 +101,7 @@ export default function TeamContactSection() {
             <Link href="#contact">
               <Button
                 size="sm"
-                className="bg-[#ed2024] hover:bg-[#c41a1d] text-white rounded-full px-4 py-2"
+                className="w-full bg-[#ed2024] hover:bg-[#c41a1d] text-white rounded-full px-4 py-2"
               >
                 Get in touch
               </Button>
