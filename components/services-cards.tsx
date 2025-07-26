@@ -21,7 +21,7 @@ const services = [
     title: "Working Capital",
     description:
       "We offer a diverse range of working capital solutions, including Purchase Order Financing, Contract Financing, Invoice Discounting, and Seasonal Financing to ensure your operations run smoothly.",
-    borderColor: "border-t-8 border-red-600",
+    borderColor: "border-t-8 border-[#22925f]",
     logos: ["300+ Clients"],
     price: "Interest rate is 4% + risk premium",
   },
@@ -29,7 +29,7 @@ const services = [
     title: "Personal Loans",
     description:
       "Our personal loans are ideal for individuals experiencing occasional cash flow shortages or facing unexpected emergencies, providing quick and reliable access to funds when you need them most.",
-    borderColor: "border-t-8 border-red-600",
+    borderColor: "border-t-8 border-[#22925f]",
     logos: ["100+ Clients"],
     price: "Interest rate is 4% + risk premium",
   },
@@ -37,7 +37,7 @@ const services = [
     title: "Asset Management",
     description:
       "Rapid manages commercial investments for individuals and companies to increase their value, and helps raise capital through private placement while managing the private shareholder register.",
-    borderColor: "border-t-8 border-red-600",
+    borderColor: "border-t-8 border-[#22925f]",
     logos: ["20+ Companies"],
     price: "Competitive Management Fees",
   },
@@ -125,7 +125,7 @@ export default function ServicesCards() {
                             {service.description}
                           </p>
                           <Button
-                            variant="secondary"
+                            variant="outline"
                             onClick={() => {
                               setApplicationDialogOpen(true);
                               setDefaultService(
@@ -137,7 +137,7 @@ export default function ServicesCards() {
                                   | "asset-management"
                               );
                             }}
-                            className="group rounded-full inline-flex items-center text-sm font-semibold text-red-600/90 hover:text-red-600"
+                            className="group rounded-full inline-flex items-center text-sm hover:border-[#039744] hover:bg-[#039744] hover:text-white font-semibold text-[#22925f]"
                           >
                             Apply Now
                             <ArrowRight className="ml-1 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

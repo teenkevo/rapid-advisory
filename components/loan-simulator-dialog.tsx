@@ -244,13 +244,13 @@ export function LoanSimulatorDialog({
                   <ToggleGroupItem
                     key={loan.id}
                     value={loan.id}
-                    className="h-auto p-4 border-2 border-slate-200 hover:border-[#ed2024] data-[state=on]:border-[#ed2024] data-[state=on]:bg-red-50 data-[state=on]:text-[#ed2024] rounded-lg transition-all duration-200"
+                    className="h-auto p-4 border-2 border-slate-200 hover:border-[#039744] data-[state=on]:border-[#039744] data-[state=on]:bg-[#039744]/20 data-[state=on]:text-[#039744] rounded-lg transition-all duration-200"
                   >
                     <div className="flex flex-col items-center gap-2 text-center">
                       <Icon className="h-8 w-8 group-data-[state=on]:text-black" />
                       <div>
                         <h4 className="font-semibold text-sm">{loan.name}</h4>
-                        <p className="text-xs text-slate-600 group-data-[state=on]:text-red-700">
+                        <p className="text-xs text-gray-500 group-data-[state=on]:text-[#039744]">
                           {loan.description}
                         </p>
                       </div>
@@ -269,7 +269,7 @@ export function LoanSimulatorDialog({
                   <h3 className="font-semibold">2. Loan Amount</h3>
                   <Badge
                     variant="outline"
-                    className="text-[#ed2024] border-[#ed2024]"
+                    className="text-[#039744] bg-white border-[#039744]"
                   >
                     {formatCurrency(loanAmount[0])}
                   </Badge>
@@ -296,7 +296,7 @@ export function LoanSimulatorDialog({
                   <h3 className="font-semibold">3. Loan Term</h3>
                   <Badge
                     variant="outline"
-                    className="text-[#ed2024] border-[#ed2024]"
+                    className="text-[#039744] bg-white border-[#039744]"
                   >
                     {loanTerm[0]} months
                   </Badge>
@@ -348,15 +348,15 @@ export function LoanSimulatorDialog({
               >
                 <h3 className="font-semibold">5. Loan Summary</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Card className="border-[#ed2024] border-2">
+                  <Card className="border-[#039744] border-2">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <Calendar className="h-4 w-4 text-[#ed2024]" />
+                        <Calendar className="h-4 w-4 text-[#039744]" />
                         <span className="text-sm font-medium">
                           Monthly Payment
                         </span>
                       </div>
-                      <p className="text-2xl font-bold text-[#ed2024]">
+                      <p className="text-2xl font-bold text-[#039744]">
                         {formatCurrency(monthlyPayment)}
                       </p>
                     </CardContent>
@@ -391,13 +391,13 @@ export function LoanSimulatorDialog({
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Interest</p>
-                        <p className="font-semibold text-orange-600 md:text-base text-sm">
+                        <p className="font-semibold text-[#039744] md:text-base text-sm">
                           {formatCurrency(totalInterest)}
                         </p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Repayment</p>
-                        <p className="font-semibold text-[#ed2024] md:text-base text-sm">
+                        <p className="font-semibold text-[#039744] md:text-base text-sm">
                           {formatCurrency(totalAmount)}
                         </p>
                       </div>
@@ -427,7 +427,7 @@ export function LoanSimulatorDialog({
                 <div className="flex gap-3">
                   <Button
                     onClick={() => setStep("contact")}
-                    className="flex-1 bg-[#ed2024] hover:bg-[#d11d21]"
+                    className="flex-1 bg-[#039744] hover:bg-[#039744]"
                   >
                     Apply for This Loan
                   </Button>
@@ -549,7 +549,7 @@ export function LoanSimulatorDialog({
 
             <Button
               type="submit"
-              className="w-full bg-[#ed2024] hover:bg-[#d11d21]"
+              className="w-full bg-[#039744] hover:bg-[#039744]"
             >
               Submit Loan Application
             </Button>
@@ -560,7 +560,7 @@ export function LoanSimulatorDialog({
       {step === "confirmation" && (
         <div className="text-center space-y-6">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-            <Check className="h-8 w-8 text-[#ed2024]" />
+            <Check className="h-8 w-8 text-[#039744]" />
           </div>
 
           <div>
@@ -636,7 +636,7 @@ export function LoanSimulatorDialog({
             {step !== "confirmation" && (
               <>
                 <SheetTitle className="flex items-center gap-2">
-                  <Calculator className="h-5 w-5 text-[#ed2024]" />
+                  <Calculator className="h-5 w-5 text-[#039744]" />
                   Loan Calculator
                 </SheetTitle>
                 <SheetDescription className="text-start">
@@ -661,7 +661,7 @@ export function LoanSimulatorDialog({
           {step !== "confirmation" && (
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
-                <Calculator className="h-5 w-5 text-[#ed2024]" />
+                <Calculator className="h-5 w-5 text-[#039744]" />
                 Loan Calculator
               </DialogTitle>
               <DialogDescription>

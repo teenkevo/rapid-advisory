@@ -73,7 +73,7 @@ export default function Component() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="inline-block border-2 border-[#ed2024] text-slate-800 px-3 py-1 rounded-md mt-2"
+                      className="inline-block border-2 border-[#FFCA0B] text-slate-800 px-3 py-1 rounded-md mt-2"
                     >
                       {dynamicWords[index]}
                     </motion.span>
@@ -119,7 +119,7 @@ export default function Component() {
                 <Button
                   onClick={() => setApplicationDialogOpen(true)}
                   size="lg"
-                  className="bg-[#ed2024] hover:bg-[#c41a1d] text-white px-8 py-3 rounded-full"
+                  className="bg-gradient-to-b from-[#039744] to-[#039744]/90 hover:bg-[#22925f] text-white px-8 py-3 rounded-full"
                 >
                   Apply Now
                 </Button>

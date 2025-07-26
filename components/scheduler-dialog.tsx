@@ -196,17 +196,17 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
                   <ToggleGroupItem
                     key={service.id}
                     value={service.id}
-                    className="w-full h-auto p-4 border-2 border-slate-200 hover:border-[#ed2024] data-[state=on]:border-[#ed2024] data-[state=on]:bg-red-50 data-[state=on]:text-[#ed2024] rounded-lg transition-all duration-200"
+                    className="w-full h-auto p-4 border-2 border-slate-200 hover:border-[#039744] data-[state=on]:border-[#039744] data-[state=on]:bg-[#039744]/10 data-[state=on]:text-[#039744] rounded-lg transition-all duration-200"
                   >
                     <div className="flex items-start gap-4 text-left w-full">
-                      <div className="flex-shrink-0 w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center group-data-[state=on]:bg-red-100">
+                      <div className="flex-shrink-0 w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center group-data-[state=on]:bg-[#039744]/10">
                         <Icon className="h-6 w-6  group-data-[state=on]:text-black" />
                       </div>
                       <div className="flex-1">
                         <h4 className="font-semibold text-base mb-1">
                           {service.name}
                         </h4>
-                        <p className="text-sm text-slate-600 group-data-[state=on]:text-red-700">
+                        <p className="text-sm text-slate-600 group-data-[state=on]:text-[#039744]">
                           {service.description}
                         </p>
                       </div>
@@ -301,7 +301,7 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
                     <div className="w-48">
                       <div className="mb-3">
                         <div className="flex items-center gap-2 mb-2">
-                          <CalendarIcon className="h-4 w-4 text-[#ed2024]" />
+                          <CalendarIcon className="h-4 w-4 text-[#039744]" />
                           <span className="text-sm font-medium">
                             {format(selectedDate, "MMM d, yyyy")}
                           </span>
@@ -325,8 +325,8 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
                               }
                               className={`w-full justify-start font-light text-sm ${
                                 selectedTime === time
-                                  ? "bg-[#ed2024] hover:bg-[#d11d21] text-white"
-                                  : "hover:bg-red-50 hover:border-[#ed2024] bg-transparent"
+                                  ? "bg-[#039744] hover:bg-[#039744] text-white"
+                                  : "hover:bg-[#039744]/10 hover:border-[#039744] bg-transparent"
                               }`}
                               onClick={() => handleTimeSelect(time)}
                             >
@@ -356,7 +356,7 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-3">
-                <CalendarIcon className="h-4 w-4 text-[#ed2024]" />
+                <CalendarIcon className="h-4 w-4 text-[#039744]" />
                 <span className="text-sm">
                   {format(selectedDate, "EEEE, MMMM d, yyyy")}
                 </span>
@@ -366,7 +366,7 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
                   <Button
                     key={time}
                     variant="outline"
-                    className="justify-start font-light text-sm hover:bg-red-50 hover:border-[#ed2024] bg-transparent"
+                    className="justify-start font-light text-sm hover:bg-red-50 hover:border-[#039744] bg-transparent"
                     onClick={() => handleTimeSelect(time)}
                   >
                     <Clock className="h-4 w-4 mr-2" />
@@ -410,7 +410,9 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-gray-500" />
                 <span className="text-sm font-light">{selectedTime}</span>
-                <Badge variant="secondary">30 minutes</Badge>
+                <Badge variant="outline" className="bg-white border-[#039744]">
+                  30 minutes
+                </Badge>
               </div>
             </CardContent>
           </Card>
@@ -468,7 +470,7 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
             </div>
             <Button
               type="submit"
-              className="w-full bg-[#ed2024] hover:bg-[#d11d21]"
+              className="w-full bg-[#039744] hover:bg-[#039744]"
             >
               Confirm Appointment
             </Button>
@@ -478,8 +480,8 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
 
       {step === "confirmation" && (
         <div className="text-center space-y-6">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-            <Check className="h-8 w-8 text-[#ed2024]" />
+          <div className="w-16 h-16 bg-[#039744]/20 rounded-full flex items-center justify-center mx-auto">
+            <Check className="h-8 w-8 text-[#039744]" />
           </div>
           <div>
             <h3 className="text-xl font-bold mb-2">Appointment Confirmed!</h3>
@@ -533,7 +535,10 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
               </div>
             </CardContent>
           </Card>
-          <Button onClick={handleClose} className="w-full">
+          <Button
+            onClick={handleClose}
+            className="bg-[#039744] hover:bg-[#039744] w-full"
+          >
             Close
           </Button>
         </div>
@@ -549,7 +554,7 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
             {step !== "confirmation" && (
               <>
                 <SheetTitle className="flex items-center gap-2">
-                  <CalendarIcon className="h-5 w-5 text-[#ed2024]" />
+                  <CalendarIcon className="h-5 w-5 text-[#039744]" />
                   Schedule Your Consultation
                 </SheetTitle>
                 <SheetDescription className="text-start">
@@ -579,7 +584,7 @@ export function SchedulerDialog({ open, onOpenChange }: SchedulerDialogProps) {
             {step !== "confirmation" && (
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <CalendarIcon className="h-5 w-5 text-[#ed2024]" />
+                  <CalendarIcon className="h-5 w-5 text-[#039744]" />
                   Schedule Your Consultation
                 </DialogTitle>
                 <DialogDescription>
