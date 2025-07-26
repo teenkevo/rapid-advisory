@@ -97,7 +97,7 @@ export default function Header() {
                     href="tel:+256782820404"
                     className="hover:text-blue-300 transition-colors relative"
                   >
-                    <Phone className="w-4 h-4" />
+                    <Phone className="w-5 h-5" />
                     <span className="absolute -top-1 -right-1 text-xs font-bold">
                       1
                     </span>
@@ -106,7 +106,7 @@ export default function Header() {
                     href="tel:+256393202348"
                     className="hover:text-blue-300 transition-colors relative"
                   >
-                    <Phone className="w-4 h-4" />
+                    <Phone className="w-5 h-5" />
                     <span className="absolute -top-1 -right-1 text-xs font-bold">
                       2
                     </span>
@@ -115,7 +115,7 @@ export default function Header() {
                     href="mailto:info@rapidadvisory.com"
                     className="hover:text-blue-300 transition-colors"
                   >
-                    <Mail className="w-4 h-4" />
+                    <Mail className="w-5 h-5" />
                   </Link>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -123,19 +123,19 @@ export default function Header() {
                     href="#"
                     className="hover:text-blue-300 transition-colors"
                   >
-                    <Facebook className="w-4 h-4" />
+                    <Facebook className="w-5 h-5" />
                   </Link>
                   <Link
                     href="#"
                     className="hover:text-blue-300 transition-colors"
                   >
-                    <Linkedin className="w-4 h-4" />
+                    <Linkedin className="w-5 h-5" />
                   </Link>
                   <Link
                     href="#"
                     className="hover:text-green-300 transition-colors"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <MessageCircle className="w-5 h-5" />
                   </Link>
                 </div>
               </div>
@@ -182,10 +182,10 @@ export default function Header() {
                 Pricing
               </Link>
               <Link
-                href="#about-us"
+                href="#team"
                 className="px-4 py-2 rounded-full text-slate-700 text-sm hover:bg-slate-100 transition-colors font-medium"
               >
-                About Us
+                The Team
               </Link>
               <Link
                 href="#contact"
