@@ -13,18 +13,15 @@ import {
   MessageCircle,
   LinkedinIcon,
   FacebookIcon,
-  Video,
 } from "lucide-react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ApplicationDialog } from "./application-dialog";
-import { SchedulerDialog } from "./scheduler-dialog";
 
 export default function Footer() {
   const [applicationDialogOpen, setApplicationDialogOpen] = useState(false);
-  const [isSchedulerOpen, setIsSchedulerOpen] = useState(false);
   return (
     <footer className="bg-gradient-to-b md:bg-gradient-to-r from-black via-black/80 to-black/70 rounded-t-3xl text-[#8B949E] px-5 md:px-20 py-16 mx-2 md:mx-2">
       <div className="container mx-auto px-0">
@@ -63,7 +60,7 @@ export default function Footer() {
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
-                <div className="flex space-x-4">
+                <div className="flex">
                   <Button
                     onClick={() => setApplicationDialogOpen(true)}
                     size="sm"
@@ -148,10 +145,6 @@ export default function Footer() {
       <ApplicationDialog
         open={applicationDialogOpen}
         onOpenChange={setApplicationDialogOpen}
-      />
-      <SchedulerDialog
-        open={isSchedulerOpen}
-        onOpenChange={setIsSchedulerOpen}
       />
     </footer>
   );
