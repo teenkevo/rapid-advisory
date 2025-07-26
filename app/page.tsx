@@ -22,6 +22,7 @@ import Header from "@/components/header";
 import ServicesCards from "@/components/services-cards";
 import TeamContactSection from "@/components/team-contact";
 import ContactUsSection from "@/components/contact";
+import { ApplicationDialog } from "@/components/application-dialog";
 
 const dynamicWords = [
   "you",
@@ -39,7 +40,7 @@ const dynamicWords = [
 
 export default function Component() {
   const [index, setIndex] = useState(0);
-
+  const [applicationDialogOpen, setApplicationDialogOpen] = useState(false);
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % dynamicWords.length);
@@ -62,7 +63,7 @@ export default function Component() {
             {/* Left Side - Stats and Info */}
             <div className="space-y-8">
               <div>
-                <h1 className="text-3xl md:text-5xl font-medium text-slate-800 mb-6 leading-tight">
+                <h1 className="text-3xl md:text-5xl font-bold text-slate-800 mb-6 leading-tight">
                   <span className="block">Financial flexibility for</span>
                   <AnimatePresence mode="wait">
                     <motion.span
@@ -115,6 +116,7 @@ export default function Component() {
 
               <div className="flex">
                 <Button
+                  onClick={() => setApplicationDialogOpen(true)}
                   size="lg"
                   className="bg-[#ed2024] hover:bg-[#c41a1d] text-white px-8 py-3 rounded-full"
                 >
@@ -193,6 +195,11 @@ export default function Component() {
           </div>
         </div>
       </footer>
+
+      <ApplicationDialog
+        open={applicationDialogOpen}
+        onOpenChange={() => setApplicationDialogOpen(false)}
+      />
     </div>
   );
 }

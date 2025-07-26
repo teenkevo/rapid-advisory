@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { DollarSign, Shield, TrendingUp, ArrowRight } from "lucide-react";
+import { Button } from "./ui/button";
+import { ApplicationDialog } from "./application-dialog";
 
 const cards = [
   {
@@ -20,6 +21,7 @@ const cards = [
     activeColor: "text-slate-800",
     progressColor: "bg-slate-800",
     hoverTextColor: "group-hover:text-slate-800",
+    serviceKey: "working-capital" as const,
   },
   {
     id: 2,
@@ -37,6 +39,7 @@ const cards = [
     activeColor: "text-[#15549a]",
     progressColor: "bg-[#15549a]",
     hoverTextColor: "group-hover:text-[#15549a]",
+    serviceKey: "personal-loans" as const,
   },
   {
     id: 3,
@@ -53,13 +56,17 @@ const cards = [
     activeColor: "text-slate-800",
     progressColor: "bg-slate-800",
     hoverTextColor: "group-hover:text-slate-800",
+    serviceKey: "asset-management" as const,
   },
 ];
+
+type ServiceKey = (typeof cards)[number]["serviceKey"];
 
 export default function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [key, setKey] = useState(0); // Key to force progress bar restart
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [applicationDialogOpen, setApplicationDialogOpen] = useState(false);
 
   const startTimer = () => {
     if (timerRef.current) {
@@ -103,7 +110,7 @@ export default function HeroCarousel() {
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute inset-0"
           >
             <img
@@ -140,13 +147,13 @@ export default function HeroCarousel() {
                 {currentCard.description}
               </p>
               <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-                <Link
-                  href="#"
+                <Button
+                  onClick={() => setApplicationDialogOpen(true)}
                   className="group inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-white text-[#ed2024] border-2 border-[#ed2024] transition-all duration-300 ease-in-out hover:bg-red-50 hover:pl-5 hover:pr-3"
                 >
                   <span>Apply Now</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
-                </Link>
+                </Button>
                 <div className="flex items-center space-x-2 text-sm">
                   {currentCard.tags.map((tag, index) => (
                     <span
@@ -168,7 +175,6 @@ export default function HeroCarousel() {
         {cards.map((card, index) => {
           const Icon = card.icon;
           const isActive = index === currentIndex;
-
           return (
             <button
               key={card.id}
@@ -208,6 +214,12 @@ export default function HeroCarousel() {
           );
         })}
       </div>
+
+      <ApplicationDialog
+        defaultService={currentCard.serviceKey}
+        open={applicationDialogOpen}
+        onOpenChange={() => setApplicationDialogOpen(false)}
+      />
     </div>
   );
 }

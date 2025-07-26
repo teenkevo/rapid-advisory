@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -13,6 +13,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Button } from "./ui/button";
+import { ApplicationDialog } from "./application-dialog";
 
 const services = [
   {
@@ -44,7 +46,10 @@ const services = [
 export default function ServicesCards() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-
+  const [applicationDialogOpen, setApplicationDialogOpen] = useState(false);
+  const [defaultService, setDefaultService] = useState<
+    "working-capital" | "personal-loans" | "asset-management" | undefined
+  >(undefined);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -119,13 +124,24 @@ export default function ServicesCards() {
                           <p className="text-slate-600 mb-6 leading-relaxed">
                             {service.description}
                           </p>
-                          <Link
-                            href="#"
-                            className="group inline-flex items-center text-sm font-semibold text-red-600/90 hover:text-red-600"
+                          <Button
+                            variant="secondary"
+                            onClick={() => {
+                              setApplicationDialogOpen(true);
+                              setDefaultService(
+                                service.title
+                                  .toLowerCase()
+                                  .replace(" ", "-") as
+                                  | "working-capital"
+                                  | "personal-loans"
+                                  | "asset-management"
+                              );
+                            }}
+                            className="group rounded-full inline-flex items-center text-sm font-semibold text-red-600/90 hover:text-red-600"
                           >
                             Apply Now
                             <ArrowRight className="ml-1 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                          </Link>
+                          </Button>
                           <p className="text-xs text-slate-600 mt-3 uppercase font-light tracking-wider">
                             {service.price}
                           </p>
@@ -153,6 +169,11 @@ export default function ServicesCards() {
           </div>
         </Carousel>
       </div>
+      <ApplicationDialog
+        open={applicationDialogOpen}
+        onOpenChange={setApplicationDialogOpen}
+        defaultService={defaultService}
+      />
     </section>
   );
 }
