@@ -65,7 +65,7 @@ export default function Component() {
             <div className="space-y-8">
               <div>
                 <h1 className="text-[2rem] md:text-5xl font-extrabold text-black mb-6 leading-tight">
-                  <span className="block">Financial flexibility for</span>
+                  <span>Financial flexibility for </span>
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={dynamicWords[index]}
@@ -73,7 +73,7 @@ export default function Component() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="inline-block border-2 border-[#ed2024] text-slate-800 px-3 py-1 rounded-md mt-2"
+                      className="inline-block border-2 border-[#ed2024] text-black px-3 py-1 rounded-md"
                     >
                       {dynamicWords[index]}
                     </motion.span>

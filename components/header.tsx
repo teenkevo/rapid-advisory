@@ -218,13 +218,12 @@ export default function Header() {
             {/* Mobile Hamburger Menu */}
             <div className="lg:hidden flex items-center space-x-2">
               <Button
-                size="sm"
+                size="icon"
                 variant="outline"
                 onClick={() => setIsLoanSimulatorOpen(true)}
                 className=" group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
               >
                 <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4" />
-                Simulate
               </Button>
               <Button
                 size="sm"
