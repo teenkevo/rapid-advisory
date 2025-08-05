@@ -637,7 +637,7 @@ export function LoanSimulatorDialog({
               <>
                 <SheetTitle className="flex items-center gap-2">
                   <Calculator className="h-5 w-5 text-[#ed2024]" />
-                  Loan Calculator
+                  Plan my loan
                 </SheetTitle>
                 <SheetDescription className="text-start">
                   Calculate your loan payments and apply instantly
@@ -662,7 +662,7 @@ export function LoanSimulatorDialog({
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-[#ed2024]" />
-                Loan Calculator
+                Plan my loan
               </DialogTitle>
               <DialogDescription>
                 Calculate your loan payments and apply instantly

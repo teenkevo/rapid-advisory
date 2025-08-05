@@ -175,12 +175,7 @@ export default function Header() {
               >
                 Products
               </Link>
-              <Link
-                href="#products"
-                className="px-4 py-2 rounded-full text-slate-700 text-sm hover:bg-slate-100 transition-colors font-medium"
-              >
-                Pricing
-              </Link>
+
               <Link
                 href="#about-us"
                 className="px-4 py-2 rounded-full text-slate-700 text-sm hover:bg-slate-100 transition-colors font-medium"
@@ -201,7 +196,7 @@ export default function Header() {
                   className="group rounded-full border  bg-white shadow-xl hover:bg-[#ed2024]  hover:text-white transition-all duration-300"
                 >
                   <Cog className="w-4 text-[#ed2024] group-hover:text-white h-4" />
-                  Simulate a loan
+                  Plan my loan
                 </Button>
                 {/* Gradient Border Button */}
                 <Button
