@@ -26,7 +26,8 @@ const teamMembers = [
     id: 1,
     name: "Leonard K Mutesasira",
     role: "Executive Director",
-    image: "https://www.rapidadvisory.com/team/ST-L.jpg",
+    image:
+      "https://res.cloudinary.com/teenkevo-cloud/image/upload/q_auto:eco/v1756809977/LMK_2_kj4yb9.webp",
   },
   {
     id: 2,
@@ -151,10 +152,10 @@ export default function TeamContactSection() {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
         >
           <Image
-            src="https://www.rapidadvisory.com/team.jpg"
+            src="https://res.cloudinary.com/teenkevo-cloud/image/upload/q_auto:eco/v1756810153/RASL_Team_Image_2025_nxrori.jpg"
             alt="The Rapid Advisory Team"
             fill
-            className="object-cover grayscale hover:grayscale-0 transition-all duration-300"
+            className="object-cover object-top grayscale hover:grayscale-0 transition-all duration-300"
             sizes="100vw"
           />
         </motion.div>
